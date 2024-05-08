@@ -1,0 +1,45 @@
+ManifestFileVersion: 0
+CRC: 1768942438
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: f8f46917d2a68f4eff2c272c776729f5
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 4f4081a1c1e410c2293aa96038cb14b9
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 108
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 661e5c623391ef8f2329ddd0619f719c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f9391fcb5ba6bb5d69fc6b532877ec3b, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c863958e16a8cce3eefc4ec691ab4cce, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 198
+  Script: {instanceID: 0}
+- Class: 199
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/EtherAssets/ShipAnim/Thrusters.prefab
+Dependencies: []

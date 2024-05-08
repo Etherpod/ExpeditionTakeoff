@@ -7,13 +7,16 @@ namespace ExpeditionTakeoff;
 public class PatchClass
 {
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(SubmitActionLoadScene), nameof(SubmitActionLoadScene.ConfirmSubmit))]
-    public static void ConfirmSubmit_Postfix(SubmitActionLoadScene __instance)
+    [HarmonyPatch(typeof(Campfire), nameof(Campfire.SetState))]
+    public static void Campfire_Postfix(Campfire __instance)
     {
-        if (__instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.GAME
-            || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.EYE)
+        if (__instance._state == Campfire.State.UNLIT)
         {
-            ExpeditionTakeoff.Instance.StartTakeoffSequence();
+            ExpeditionTakeoff.Instance.ModHelper.Console.WriteLine("Correct state");
+            for (int i = 0; i < __instance._litRenderers.Length; i++)
+            {
+                __instance._litRenderers[i].SetActivation(true);
+            }
         }
     }
 }
