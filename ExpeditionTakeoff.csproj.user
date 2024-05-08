@@ -1,7 +1,7 @@
 ﻿<Project>
   <PropertyGroup>
     <OutputPath>$(AppData)\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff</OutputPath>
-    <UnityProjectDir>$(SolutionDir)\..\outer-wilds-unity-assets-main</UnityProjectDir>
+    <UnityProjectDir>$(SolutionDir)\..\ExpeditionTakeoffAssets</UnityProjectDir>
     <UnityProjectModDir>$(UnityProjectDir)\Assets\Dlls</UnityProjectModDir>
   </PropertyGroup>
 </Project>

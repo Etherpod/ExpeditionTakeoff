@@ -13,3 +13,4 @@ D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.AssemblyInfo.
 D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.CoreCompileInputs.cache
 D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.dll
 D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.pdb
+D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.sourcelink.json
