@@ -1,5 +1,6 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
+using System.Collections;
 using System.Reflection;
 using UnityEngine;
 
@@ -10,7 +11,7 @@ public class ExpeditionTakeoff : ModBehaviour
     public static ExpeditionTakeoff Instance;
 
     private TitleScreenManager _titleScreenManager;
-    private GameObject _thrustersParent;
+    private GameObject _shipObject;
     private Campfire _campfireController;
 
     private void Awake()
@@ -38,10 +39,15 @@ public class ExpeditionTakeoff : ModBehaviour
     private void InitObjects()
     {
         ModHelper.Console.WriteLine("Init");
-        GameObject thrustersPrefab = AssetBundleUtilities.LoadPrefab("assets/expeditiontakeoff", "Assets/EtherAssets/ShipAnim/Thrusters.prefab", this);
-        Transform shipProxyParent = GameObject.Find("Structure_HEA_PlayerShip_v4_NearProxy").transform;
-        _thrustersParent = Instantiate(thrustersPrefab, shipProxyParent);
-        _thrustersParent.transform.position += new Vector3(0f, 3.85f, 0f);
+        GameObject shipPrefab = AssetBundleUtilities.LoadPrefab("assets/expeditiontakeoff", "Assets/ShipAnim/Ship_Pivot.prefab", this);
+        Transform shipProxy = GameObject.Find("Structure_HEA_PlayerShip_v4_NearProxy").transform;
+        _shipObject = Instantiate(shipPrefab, shipProxy.parent);
+        _shipObject.transform.position = shipProxy.position;
+        _shipObject.transform.rotation = shipProxy.rotation;
+        _shipObject.transform.localScale = shipProxy.localScale;
+        shipProxy.gameObject.SetActive(false);
+        _shipObject.SetActive(true);
+        _shipObject.GetComponentInChildren<ShipThrusterAnimator>().enabled = true;
 
         _campfireController = FindObjectOfType<Campfire>();
     }
@@ -54,9 +60,12 @@ public class ExpeditionTakeoff : ModBehaviour
 
         _campfireController.SetState(Campfire.State.UNLIT);
 
-        foreach (ThrusterFlameController flameController in _thrustersParent.GetComponentsInChildren<ThrusterFlameController>())
-        {
-            flameController.OnStartTranslationalThrust();
-        }
+        StartCoroutine(ShipLiftoffDelay());
+    }
+
+    private IEnumerator ShipLiftoffDelay()
+    {
+        yield return new WaitForSeconds(3f);
+        _shipObject.GetComponentInChildren<Animator>().SetTrigger("Liftoff");
     }
 }

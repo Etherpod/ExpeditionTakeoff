@@ -2,7 +2,7 @@
   "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/manifest_schema.json",
   "filename": "ExpeditionTakeoff.dll",
   "author": "Etherpod",
-  "name": "ExpeditionTakeoff",
+  "name": "Expedition Takeoff",
   "uniqueName": "Etherpod.ExpeditionTakeoff",
   "version": "0.1.0",
   "owmlVersion": "2.9.8",

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 1768942438
+CRC: 3121143594
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: f8f46917d2a68f4eff2c272c776729f5
+    Hash: 2a714b9f2b0098a5bac89c3bfccc3389
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 4f4081a1c1e410c2293aa96038cb14b9
+    Hash: 03d746efbade9ac5c122c245de37e302
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -17,6 +17,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 23
   Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
 - Class: 33
   Script: {instanceID: 0}
 - Class: 43
@@ -25,8 +27,16 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 64
   Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
 - Class: 108
   Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 236636170, guid: 2a04241e58987c74a896494b4e339113, type: 3}
 - Class: 114
   Script: {fileID: 11500000, guid: 661e5c623391ef8f2329ddd0619f719c, type: 3}
 - Class: 114
@@ -41,5 +51,9 @@ ClassTypes:
   Script: {instanceID: 0}
 SerializeReferenceClassIdentifiers: []
 Assets:
-- Assets/EtherAssets/ShipAnim/Thrusters.prefab
+- Assets/ShipAnim/Thrusters.prefab
+- Assets/ShipAnim/Ship_Liftoff.anim
+- Assets/ShipAnim/Ship_Pivot.prefab
+- Assets/ShipAnim/TitleScreenShip.controller
+- Assets/ShipAnim/Structure_HEA_PlayerShip_v4_NearProxy.prefab
 Dependencies: []
