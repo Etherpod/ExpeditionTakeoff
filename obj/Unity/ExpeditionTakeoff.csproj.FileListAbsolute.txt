@@ -14,3 +14,11 @@ D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.CoreCo
 D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.dll
 D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.pdb
 D:\Production\GitHub\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.sourcelink.json
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.AssemblyReference.cache
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.GeneratedMSBuildEditorConfig.editorconfig
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.AssemblyInfoInputs.cache
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.AssemblyInfo.cs
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.CoreCompileInputs.cache
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.sourcelink.json
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.dll
+C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.pdb
