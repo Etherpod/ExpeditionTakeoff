@@ -24,10 +24,10 @@ namespace ExpeditionTakeoff
         [SerializeField] private bool syncYThrusters;
         [SerializeField] private bool syncZThrusters;
 
-        private float _thrusterLightIntensity = 0.5f;
+        private float _thrusterLightIntensity = 0.3f;
+        private float _thrusterLightRange = 150f;
         private float[] _thrusterValues;
         private List<Light> _thrusterLights = [];
-        private List<float> _thrusterLightRanges = [];
 
         private void Start()
         {
@@ -35,8 +35,7 @@ namespace ExpeditionTakeoff
             {
                 _thrusterLights.Add(_targetThrusters[i].GetComponentInChildren<Light>());
                 _thrusterLights[i].intensity = _thrusterLightIntensity;
-                _thrusterLights[i].range *= 4f;
-                _thrusterLightRanges.Add(_thrusterLights[i].range);
+                _thrusterLights[i].range = _thrusterLightRange;
             }
         }
 
@@ -77,7 +76,7 @@ namespace ExpeditionTakeoff
                 if (_thrusterValues[i] != 0f)
                 {
                     _thrusterLights[i].enabled = true;
-                    _thrusterLights[i].range = _thrusterLightRanges[i] * _thrusterValues[i];
+                    _thrusterLights[i].range = _thrusterLightRange * _thrusterValues[i];
                     _targetThrusters[i].GetComponent<MeshRenderer>().enabled = true;
                 }
                 else

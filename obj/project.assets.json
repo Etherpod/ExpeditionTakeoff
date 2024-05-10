@@ -594,11 +594,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\GitHub Projects\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
+      "projectUniqueName": "D:\\Production\\GitHub\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
       "projectName": "ExpeditionTakeoff",
-      "projectPath": "C:\\GitHub Projects\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
+      "projectPath": "D:\\Production\\GitHub\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
       "packagesPath": "C:\\Users\\ether\\.nuget\\packages\\",
-      "outputPath": "C:\\GitHub Projects\\ExpeditionTakeoff\\obj\\",
+      "outputPath": "D:\\Production\\GitHub\\ExpeditionTakeoff\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -625,11 +625,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -645,7 +640,7 @@
             "version": "[1.1.14.768, )"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
       }
     }
   }

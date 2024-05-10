@@ -24,11 +24,22 @@ public class ExpeditionTakeoff : ModBehaviour
     {
         ModHelper.Console.WriteLine($"My mod {nameof(ExpeditionTakeoff)} is loaded!", MessageType.Success);
 
-        ModHelper.Console.WriteLine("Loaded thingy");
         _titleScreenManager = FindObjectOfType<TitleScreenManager>();
         _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
         _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
         InitObjects();
+
+        ModHelper.Console.WriteLine("Loaded thingy");
+        LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
+        {
+            if (loadScene == OWScene.TitleScreen)
+            {
+                _titleScreenManager = FindObjectOfType<TitleScreenManager>();
+                _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
+                _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
+                InitObjects();
+            }
+        };
     }
 
     private void Update()
@@ -65,7 +76,12 @@ public class ExpeditionTakeoff : ModBehaviour
 
     private IEnumerator ShipLiftoffDelay()
     {
-        yield return new WaitForSeconds(3f);
-        _shipObject.GetComponentInChildren<Animator>().SetTrigger("Liftoff");
+        yield return new WaitForSeconds(1f);
+        FindObjectOfType<TravelerController>().gameObject.SetActive(false);
+        yield return new WaitForSeconds(2f);
+        int animIndex = Random.Range(0, 3);
+        animIndex = 2;
+        ModHelper.Console.WriteLine("Index: "+ animIndex);
+        _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", animIndex);
     }
 }
