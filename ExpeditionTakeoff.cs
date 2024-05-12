@@ -9,6 +9,7 @@ namespace ExpeditionTakeoff;
 public class ExpeditionTakeoff : ModBehaviour
 {
     public static ExpeditionTakeoff Instance;
+    internal bool infiniteLoadingTime = true;
 
     private TitleScreenManager _titleScreenManager;
     private GameObject _shipObject;
@@ -22,34 +23,33 @@ public class ExpeditionTakeoff : ModBehaviour
 
     private void Start()
     {
-        ModHelper.Console.WriteLine($"My mod {nameof(ExpeditionTakeoff)} is loaded!", MessageType.Success);
+        if (!infiniteLoadingTime)
+        {
+            _titleScreenManager = FindObjectOfType<TitleScreenManager>();
+            _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
+            _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
+        }
 
-        _titleScreenManager = FindObjectOfType<TitleScreenManager>();
-        _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
-        _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
         InitObjects();
 
-        ModHelper.Console.WriteLine("Loaded thingy");
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
         {
             if (loadScene == OWScene.TitleScreen)
             {
-                _titleScreenManager = FindObjectOfType<TitleScreenManager>();
-                _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
-                _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
+                if (!infiniteLoadingTime)
+                {
+                    _titleScreenManager = FindObjectOfType<TitleScreenManager>();
+                    _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
+                    _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
+                }
+
                 InitObjects();
             }
         };
     }
 
-    private void Update()
-    {
-
-    }
-
     private void InitObjects()
     {
-        ModHelper.Console.WriteLine("Init");
         GameObject shipPrefab = AssetBundleUtilities.LoadPrefab("assets/expeditiontakeoff", "Assets/ShipAnim/Ship_Pivot.prefab", this);
         Transform shipProxy = GameObject.Find("Structure_HEA_PlayerShip_v4_NearProxy").transform;
         _shipObject = Instantiate(shipPrefab, shipProxy.parent);
@@ -65,9 +65,11 @@ public class ExpeditionTakeoff : ModBehaviour
 
     public void StartTakeoffSequence()
     {
-        ModHelper.Console.WriteLine("Started takeoff");
-        _titleScreenManager._resumeGameAction.OnSubmitAction -= StartTakeoffSequence;
-        _titleScreenManager._newGameAction.OnSubmitAction -= StartTakeoffSequence;
+        if (!infiniteLoadingTime)
+        {
+            _titleScreenManager._resumeGameAction.OnSubmitAction -= StartTakeoffSequence;
+            _titleScreenManager._newGameAction.OnSubmitAction -= StartTakeoffSequence;
+        }
 
         _campfireController.SetState(Campfire.State.UNLIT);
 
@@ -79,9 +81,11 @@ public class ExpeditionTakeoff : ModBehaviour
         yield return new WaitForSeconds(1f);
         FindObjectOfType<TravelerController>().gameObject.SetActive(false);
         yield return new WaitForSeconds(2f);
-        int animIndex = Random.Range(0, 3);
-        animIndex = 2;
-        ModHelper.Console.WriteLine("Index: "+ animIndex);
-        _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", animIndex);
+        _campfireController.SetState(Campfire.State.SMOLDERING);
+        //int animIndex = Random.Range(0, 4);
+        //animIndex = 1;
+        //ModHelper.Console.WriteLine("Index: "+ animIndex);
+        _shipObject.transform.parent = null;
+        _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", Random.Range(0, 4));
     }
 }

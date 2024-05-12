@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Unity")]
 [assembly: System.Reflection.AssemblyCopyrightAttribute("Copyright © 2024 Etherpod")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f3e20a13482e1fcd2e1f28ffc659c4953b17b96c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f03cb019003b3c816219a2b48b0d098b962b0ecc")]
 [assembly: System.Reflection.AssemblyProductAttribute("ExpeditionTakeoff")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ExpeditionTakeoff")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

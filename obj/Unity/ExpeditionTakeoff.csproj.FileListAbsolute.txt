@@ -22,3 +22,19 @@ C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.CoreComp
 C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.sourcelink.json
 C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.dll
 C:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.pdb
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\default-config.json
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\manifest.json
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\assets\assets
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\assets\assets.manifest
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\assets\expeditiontakeoff
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\assets\expeditiontakeoff.manifest
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\ExpeditionTakeoff.dll
+C:\Users\Ethan\AppData\Roaming\OuterWildsModManager\OWML\Mods\Etherpod.ExpeditionTakeoff\ExpeditionTakeoff.pdb
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.AssemblyReference.cache
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.GeneratedMSBuildEditorConfig.editorconfig
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.AssemblyInfoInputs.cache
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.AssemblyInfo.cs
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.csproj.CoreCompileInputs.cache
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.sourcelink.json
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.dll
+E:\GitHub Projects\ExpeditionTakeoff\obj\Unity\ExpeditionTakeoff.pdb

@@ -1,24 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Production\\GitHub\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj": {}
+    "E:\\GitHub Projects\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj": {}
   },
   "projects": {
-    "D:\\Production\\GitHub\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj": {
+    "E:\\GitHub Projects\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Production\\GitHub\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
+        "projectUniqueName": "E:\\GitHub Projects\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
         "projectName": "ExpeditionTakeoff",
-        "projectPath": "D:\\Production\\GitHub\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
-        "packagesPath": "C:\\Users\\ether\\.nuget\\packages\\",
-        "outputPath": "D:\\Production\\GitHub\\ExpeditionTakeoff\\obj\\",
+        "projectPath": "E:\\GitHub Projects\\ExpeditionTakeoff\\ExpeditionTakeoff.csproj",
+        "packagesPath": "C:\\Users\\Ethan\\.nuget\\packages\\",
+        "outputPath": "E:\\GitHub Projects\\ExpeditionTakeoff\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\ether\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Users\\Ethan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -38,6 +34,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -53,7 +54,7 @@
               "version": "[1.1.14.768, )"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200\\RuntimeIdentifierGraph.json"
         }
       }
     }
