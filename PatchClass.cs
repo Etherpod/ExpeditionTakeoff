@@ -1,5 +1,4 @@
-﻿using System;
-using HarmonyLib;
+﻿using HarmonyLib;
 
 namespace ExpeditionTakeoff;
 
@@ -20,16 +19,20 @@ public class PatchClass
         }
     }
 
+    [HarmonyReversePatch]
+    [HarmonyPatch(typeof(SubmitActionConfirm), nameof(SubmitActionConfirm.ConfirmSubmit))]
+    public static void SubmitActionConfirm_ConfirmSubmit(SubmitActionConfirm instance) { }
+
     [HarmonyPrefix]
     [HarmonyPatch(typeof(SubmitActionLoadScene), nameof(SubmitActionLoadScene.ConfirmSubmit))]
-    public static bool GIVE_ME_LOADING_TIME()
+    public static bool GIVE_ME_LOADING_TIME(SubmitActionLoadScene __instance)
     {
-        if (ExpeditionTakeoff.Instance.infiniteLoadingTime)
-        {
-            ExpeditionTakeoff.Instance.StartTakeoffSequence();
-            return false;
-        }
-
-        return true;
+        if (!ExpeditionTakeoff.Instance.longLoadingTime) return true;
+        if (__instance._receivedSubmitAction) return false;
+        SubmitActionConfirm_ConfirmSubmit(__instance);
+        __instance._receivedSubmitAction = true;
+        Locator.GetMenuInputModule().DisableInputs();
+        ExpeditionTakeoff.Instance.StartCoroutine(ExpeditionTakeoff.Instance.LoadDelay(__instance));
+        return false;
     }
 }
