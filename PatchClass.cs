@@ -11,7 +11,6 @@ public class PatchClass
     {
         if (LoadManager.GetCurrentScene() == OWScene.TitleScreen && __instance._state == Campfire.State.UNLIT)
         {
-            ExpeditionTakeoff.Instance.ModHelper.Console.WriteLine("Correct state");
             for (int i = 0; i < __instance._litRenderers.Length; i++)
             {
                 __instance._litRenderers[i].SetActivation(true);
