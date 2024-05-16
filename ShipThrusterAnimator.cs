@@ -85,5 +85,10 @@ namespace ExpeditionTakeoff
                 }
             }
         }
+
+        private void OnDisable()
+        {
+            ExpeditionTakeoff.Instance.StopAllCoroutines();
+        }
     }
 }

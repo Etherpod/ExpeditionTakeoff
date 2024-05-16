@@ -1,4 +1,11 @@
 {
   "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/config_schema.json",
-  "enabled": true
+  "enabled": true,
+  "settings": {
+    "Extend Loading Time": {
+      "type": "toggle",
+      "title": "Extend Loading Time",
+      "tooltip": "Artifically extends the loading time after starting an expedition until the animation has finished. Useful for computers that load the game too quickly to see the animation."
+    }
+  }
 }

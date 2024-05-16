@@ -26,7 +26,7 @@ public class PatchClass
     [HarmonyPatch(typeof(SubmitActionLoadScene), nameof(SubmitActionLoadScene.ConfirmSubmit))]
     public static bool GIVE_ME_LOADING_TIME(SubmitActionLoadScene __instance)
     {
-        if (!ExpeditionTakeoff.Instance.longLoadingTime) return true;
+        if (!ExpeditionTakeoff.Instance.longLoadingTime || LoadManager.GetCurrentScene() != OWScene.TitleScreen) return true;
         if (__instance._receivedSubmitAction) return false;
         SubmitActionConfirm_ConfirmSubmit(__instance);
         __instance._receivedSubmitAction = true;

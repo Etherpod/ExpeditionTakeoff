@@ -1,4 +1,5 @@
-﻿using OWML.ModHelper;
+﻿using OWML.Common;
+using OWML.ModHelper;
 using System.Collections;
 using System.Reflection;
 using UnityEngine;
@@ -8,7 +9,7 @@ namespace ExpeditionTakeoff;
 public class ExpeditionTakeoff : ModBehaviour
 {
     public static ExpeditionTakeoff Instance;
-    internal bool longLoadingTime = false;
+    internal bool longLoadingTime;
 
     private TitleScreenManager _titleScreenManager;
     private GameObject _shipObject;
@@ -22,6 +23,8 @@ public class ExpeditionTakeoff : ModBehaviour
 
     private void Start()
     {
+        longLoadingTime = ModHelper.Config.GetSettingsValue<bool>("Extend Loading Time");
+
         InitObjects();
 
         LoadManager.OnCompleteSceneLoad += (scene, loadScene) =>
@@ -53,6 +56,7 @@ public class ExpeditionTakeoff : ModBehaviour
 
     public void StartTakeoffSequence()
     {
+        ModHelper.Console.WriteLine("ahaha");
         _titleScreenManager._resumeGameAction.OnSubmitAction -= StartTakeoffSequence;
         _titleScreenManager._newGameAction.OnSubmitAction -= StartTakeoffSequence;
 
@@ -96,5 +100,11 @@ public class ExpeditionTakeoff : ModBehaviour
                 LoadManager.LoadScene(OWScene.Credits_Fast, LoadManager.FadeType.ToBlack, 1f, false);
                 break;
         }
+    }
+
+    public override void Configure(IModConfig config)
+    {
+        base.Configure(config);
+        longLoadingTime = config.GetSettingsValue<bool>("Extend Loading Time");
     }
 }
