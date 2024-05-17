@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using UnityEngine;
 
 namespace ExpeditionTakeoff;
 
@@ -9,7 +10,9 @@ public class PatchClass
     [HarmonyPatch(typeof(Campfire), nameof(Campfire.SetState))]
     public static void Campfire_Postfix(Campfire __instance)
     {
-        if (LoadManager.GetCurrentScene() == OWScene.TitleScreen && __instance._state == Campfire.State.UNLIT)
+        if (LoadManager.GetCurrentScene() != OWScene.TitleScreen) return;
+
+        if (__instance._state == Campfire.State.UNLIT)
         {
             for (int i = 0; i < __instance._litRenderers.Length; i++)
             {

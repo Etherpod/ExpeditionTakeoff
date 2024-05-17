@@ -1,6 +1,7 @@
 ﻿using OWML.Common;
 using OWML.ModHelper;
 using System.Collections;
+using System.IO;
 using System.Reflection;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ public class ExpeditionTakeoff : ModBehaviour
     private TitleScreenManager _titleScreenManager;
     private GameObject _shipObject;
     private Campfire _campfireController;
+    private AssetBundle _shipBundle;
+    private bool _quickLoad;
 
     private void Awake()
     {
@@ -23,7 +26,17 @@ public class ExpeditionTakeoff : ModBehaviour
 
     private void Start()
     {
-        longLoadingTime = ModHelper.Config.GetSettingsValue<bool>("Extend Loading Time");
+        string shipPath = Path.Combine(ModHelper.Manifest.ModFolderPath, "assets/expeditiontakeoff");
+        _shipBundle = AssetBundle.LoadFromFile(shipPath);
+
+        longLoadingTime = ModHelper.Config.GetSettingsValue<bool>("extendLoadingTime");
+
+        TitleScreenAnimation titleScreenAnimation = FindObjectOfType<TitleScreenAnimation>();
+        _quickLoad = !titleScreenAnimation._introPan || titleScreenAnimation._fadeDuration == 0;
+        if (_quickLoad)
+        {
+            FindObjectOfType<TravelerController>().gameObject.SetActive(false);
+        }
 
         InitObjects();
 
@@ -41,14 +54,16 @@ public class ExpeditionTakeoff : ModBehaviour
         _titleScreenManager = FindObjectOfType<TitleScreenManager>();
         _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
         _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
-        GameObject shipPrefab = AssetBundleUtilities.LoadPrefab("assets/expeditiontakeoff", "Assets/ShipAnim/Ship_Pivot.prefab", this);
+
+        GameObject shipPrefab = (GameObject)_shipBundle.LoadAsset("Assets/ShipAnim/Ship_Pivot.prefab");
+        AssetBundleUtilities.ReplaceShaders(shipPrefab);
+
         Transform shipProxy = GameObject.Find("Structure_HEA_PlayerShip_v4_NearProxy").transform;
         _shipObject = Instantiate(shipPrefab, shipProxy.parent);
         _shipObject.transform.position = shipProxy.position;
         _shipObject.transform.rotation = shipProxy.rotation;
         _shipObject.transform.localScale = shipProxy.localScale;
         shipProxy.gameObject.SetActive(false);
-        _shipObject.SetActive(true);
         _shipObject.GetComponentInChildren<ShipThrusterAnimator>().enabled = true;
 
         _campfireController = FindObjectOfType<Campfire>();
@@ -56,7 +71,6 @@ public class ExpeditionTakeoff : ModBehaviour
 
     public void StartTakeoffSequence()
     {
-        ModHelper.Console.WriteLine("ahaha");
         _titleScreenManager._resumeGameAction.OnSubmitAction -= StartTakeoffSequence;
         _titleScreenManager._newGameAction.OnSubmitAction -= StartTakeoffSequence;
 
@@ -68,9 +82,13 @@ public class ExpeditionTakeoff : ModBehaviour
     private IEnumerator ShipLiftoffDelay()
     {
         yield return new WaitForSeconds(1f);
-        FindObjectOfType<TravelerController>().gameObject.SetActive(false);
-        yield return new WaitForSeconds(2f);
+        if (!_quickLoad)
+        {
+            FindObjectOfType<TravelerController>().gameObject.SetActive(false);
+        }
         _campfireController.SetState(Campfire.State.SMOLDERING);
+        _quickLoad = false;
+        yield return new WaitForSeconds(2f);
         _shipObject.transform.parent = null;
         _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", Random.Range(0, 4));
     }
@@ -104,7 +122,6 @@ public class ExpeditionTakeoff : ModBehaviour
 
     public override void Configure(IModConfig config)
     {
-        base.Configure(config);
-        longLoadingTime = config.GetSettingsValue<bool>("Extend Loading Time");
+        longLoadingTime = config.GetSettingsValue<bool>("extendLoadingTime");
     }
 }
