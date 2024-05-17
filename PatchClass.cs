@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace ExpeditionTakeoff;
@@ -6,6 +7,8 @@ namespace ExpeditionTakeoff;
 [HarmonyPatch]
 public class PatchClass
 {
+    public static bool profileLoaded = false;
+
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Campfire), nameof(Campfire.SetState))]
     public static void Campfire_Postfix(Campfire __instance)
@@ -29,12 +32,14 @@ public class PatchClass
     [HarmonyPatch(typeof(SubmitActionLoadScene), nameof(SubmitActionLoadScene.ConfirmSubmit))]
     public static bool GIVE_ME_LOADING_TIME(SubmitActionLoadScene __instance)
     {
-        if (!ExpeditionTakeoff.Instance.longLoadingTime || LoadManager.GetCurrentScene() != OWScene.TitleScreen) return true;
-        if (__instance._receivedSubmitAction) return false;
-        SubmitActionConfirm_ConfirmSubmit(__instance);
-        __instance._receivedSubmitAction = true;
-        Locator.GetMenuInputModule().DisableInputs();
-        ExpeditionTakeoff.Instance.StartCoroutine(ExpeditionTakeoff.Instance.LoadDelay(__instance));
+        ExpeditionTakeoff.Instance.StartCoroutine(ExpeditionTakeoff.Instance.WaitForProfile(__instance));
         return false;
+    }
+
+    [HarmonyPostfix]
+    [HarmonyPatch(typeof(TitleScreenManager), nameof(TitleScreenManager.OnProfileManagerReadDone))]
+    public static void CheckForLoading(TitleScreenManager __instance)
+    {
+        profileLoaded = true;
     }
 }

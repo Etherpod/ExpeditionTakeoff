@@ -10,13 +10,13 @@ namespace ExpeditionTakeoff;
 public class ExpeditionTakeoff : ModBehaviour
 {
     public static ExpeditionTakeoff Instance;
+    public bool quickLoad { get; private set; }
     internal bool longLoadingTime;
 
     private TitleScreenManager _titleScreenManager;
     private GameObject _shipObject;
     private Campfire _campfireController;
     private AssetBundle _shipBundle;
-    private bool _quickLoad;
 
     private void Awake()
     {
@@ -32,8 +32,9 @@ public class ExpeditionTakeoff : ModBehaviour
         longLoadingTime = ModHelper.Config.GetSettingsValue<bool>("extendLoadingTime");
 
         TitleScreenAnimation titleScreenAnimation = FindObjectOfType<TitleScreenAnimation>();
-        _quickLoad = !titleScreenAnimation._introPan || titleScreenAnimation._fadeDuration == 0;
-        if (_quickLoad)
+        _titleScreenManager = FindObjectOfType<TitleScreenManager>();
+        quickLoad = (!titleScreenAnimation._introPan || titleScreenAnimation._fadeDuration == 0);
+        if (quickLoad)
         {
             FindObjectOfType<TravelerController>().gameObject.SetActive(false);
         }
@@ -44,6 +45,7 @@ public class ExpeditionTakeoff : ModBehaviour
         {
             if (loadScene == OWScene.TitleScreen)
             {
+                _titleScreenManager = FindObjectOfType<TitleScreenManager>();
                 InitObjects();
             }
         };
@@ -51,7 +53,6 @@ public class ExpeditionTakeoff : ModBehaviour
 
     private void InitObjects()
     {
-        _titleScreenManager = FindObjectOfType<TitleScreenManager>();
         _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
         _titleScreenManager._newGameAction.OnSubmitAction += StartTakeoffSequence;
 
@@ -79,18 +80,43 @@ public class ExpeditionTakeoff : ModBehaviour
         StartCoroutine(ShipLiftoffDelay());
     }
 
+    public void ListenToResumeSubmitAction()
+    {
+        _titleScreenManager._resumeGameAction.OnSubmitAction += StartTakeoffSequence;
+    }
+
     private IEnumerator ShipLiftoffDelay()
     {
         yield return new WaitForSeconds(1f);
-        if (!_quickLoad)
+        if (!quickLoad)
         {
             FindObjectOfType<TravelerController>().gameObject.SetActive(false);
         }
         _campfireController.SetState(Campfire.State.SMOLDERING);
-        _quickLoad = false;
+        quickLoad = false;
         yield return new WaitForSeconds(2f);
         _shipObject.transform.parent = null;
         _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", Random.Range(0, 4));
+    }
+
+    public IEnumerator WaitForProfile(SubmitActionLoadScene __instance)
+    {
+        yield return new WaitUntil(() => PatchClass.profileLoaded);
+        if (!longLoadingTime || quickLoad || LoadManager.GetCurrentScene() != OWScene.TitleScreen)
+        {
+            __instance.ConfirmSubmit();
+            yield break;
+        }
+        if (__instance._receivedSubmitAction)
+        {
+            yield break;
+        }
+        ExpeditionTakeoff.Instance.ListenToResumeSubmitAction();
+        PatchClass.SubmitActionConfirm_ConfirmSubmit(__instance);
+        __instance._receivedSubmitAction = true;
+        Locator.GetMenuInputModule().DisableInputs();
+        StartCoroutine(LoadDelay(__instance));
+        yield break;
     }
 
     public IEnumerator LoadDelay(SubmitActionLoadScene __instance)
