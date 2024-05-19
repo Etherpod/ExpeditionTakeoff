@@ -1,6 +1,4 @@
 ﻿using HarmonyLib;
-using System.Runtime.CompilerServices;
-using UnityEngine;
 
 namespace ExpeditionTakeoff;
 
@@ -8,6 +6,7 @@ namespace ExpeditionTakeoff;
 public class PatchClass
 {
     public static bool profileLoaded = false;
+    public static bool firstLoadAttempt = false;
 
     [HarmonyPostfix]
     [HarmonyPatch(typeof(Campfire), nameof(Campfire.SetState))]
@@ -27,6 +26,10 @@ public class PatchClass
     [HarmonyReversePatch]
     [HarmonyPatch(typeof(SubmitActionConfirm), nameof(SubmitActionConfirm.ConfirmSubmit))]
     public static void SubmitActionConfirm_ConfirmSubmit(SubmitActionConfirm instance) { }
+
+    [HarmonyReversePatch]
+    [HarmonyPatch(typeof(SubmitActionLoadScene), nameof(SubmitActionLoadScene.ConfirmSubmit))]
+    public static void SubmitActionLoadScene_ConfirmSubmit(SubmitActionLoadScene instance) { }
 
     [HarmonyPrefix]
     [HarmonyPatch(typeof(SubmitActionLoadScene), nameof(SubmitActionLoadScene.ConfirmSubmit))]

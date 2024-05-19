@@ -7,6 +7,14 @@
       "type": "toggle",
       "value": false,
       "tooltip": "Artifically extends the loading time when starting an expedition. Useful for computers that load the game too quickly to see the animation."
+    },
+    "loadTime": {
+      "title": "Load Time",
+      "type": "slider",
+      "value": 6,
+      "min": 1,
+      "max": 15,
+      "tooltip": "The amount of time to wait when starting an expedition. Ranges from 1 second to 15 seconds."
     }
   }
 }
