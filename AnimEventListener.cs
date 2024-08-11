@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 
-namespace ExpeditionTakeoff
+namespace ExpeditionTakeoff;
+
+public class AnimEventListener : MonoBehaviour
 {
-    public class AnimEventListener : MonoBehaviour
+    [SerializeField]
+    TitleShipAudioController _audioController;
+
+    public void UnparentFromPlanet()
     {
-        public void UnparentFromPlanet()
-        {
-            ExpeditionTakeoff.Instance.UnparentShipFromPlanet();
-        }
+        ExpeditionTakeoff.Instance.UnparentShipFromPlanet();
+    }
+
+    public void PlayDamageAudio(int damageLevel)
+    {
+        _audioController.PlayDamageAudio(damageLevel);
     }
 }
