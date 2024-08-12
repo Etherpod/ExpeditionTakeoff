@@ -3,6 +3,7 @@ using OWML.ModHelper;
 using System.Collections;
 using System.IO;
 using System.Reflection;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace ExpeditionTakeoff;
@@ -15,7 +16,9 @@ public class ExpeditionTakeoff : ModBehaviour
     internal bool longLoadingTime;
 
     private TitleScreenManager _titleScreenManager;
+    private TitleScreenAnimation _titleScreenAnimation;
     private SubmitActionLoadScene _selectedButton;
+    private Dictionary<RotateTransform, float> _rotateAnimations = [];
     private GameObject _shipObject;
     private TitleShipAudioController _shipAudioController;
     private Campfire _campfireController;
@@ -40,14 +43,27 @@ public class ExpeditionTakeoff : ModBehaviour
         longLoadingTime = ModHelper.Config.GetSettingsValue<bool>("extendLoadingTime");
         loadTime = ModHelper.Config.GetSettingsValue<float>("loadTime");
 
-        TitleScreenAnimation titleScreenAnimation = FindObjectOfType<TitleScreenAnimation>();
+        _titleScreenAnimation = FindObjectOfType<TitleScreenAnimation>();
         _titleScreenManager = FindObjectOfType<TitleScreenManager>();
+        _titleScreenAnimation.OnLogoPanComplete += OnLogoPanComplete;
+        foreach (RotateTransform rotator in FindObjectsOfType<RotateTransform>())
+        {
+            _rotateAnimations.Add(rotator, rotator._degreesPerSecond);
+        }
         _traveler = FindObjectOfType<TravelerController>();
-        quickLoad = (!titleScreenAnimation._introPan || titleScreenAnimation._fadeDuration == 0);
+        quickLoad = (!_titleScreenAnimation._introPan || _titleScreenAnimation._fadeDuration == 0);
 
         if (quickLoad && _traveler)
         {
             _traveler.gameObject.SetActive(false);
+        }
+
+        if (!quickLoad && _rotateAnimations.Count > 0)
+        {
+            foreach (RotateTransform transform in _rotateAnimations.Keys)
+            {
+                transform._degreesPerSecond = 0f;
+            }
         }
 
         InitObjects();
@@ -80,6 +96,17 @@ public class ExpeditionTakeoff : ModBehaviour
         }
 
         _campfireController = FindObjectOfType<Campfire>();
+    }
+
+    private void OnLogoPanComplete()
+    {
+        if (!quickLoad && _rotateAnimations.Count > 0)
+        {
+            foreach (RotateTransform transform in _rotateAnimations.Keys)
+            {
+                transform._degreesPerSecond = _rotateAnimations[transform];
+            }
+        }
     }
 
     public void StartTakeoffSequence()
@@ -140,7 +167,14 @@ public class ExpeditionTakeoff : ModBehaviour
             PatchClass.firstLoadAttempt = true;
             yield break;
         }
-        if (!longLoadingTime || (quickLoad && hasGameSave) || LoadManager.GetCurrentScene() != OWScene.TitleScreen 
+        if (!longLoadingTime || (quickLoad && hasGameSave))
+        {
+            __instance.OnSubmitAction += StartTakeoffSequence;
+            _selectedButton = __instance;
+            PatchClass.SubmitActionLoadScene_ConfirmSubmit(__instance);
+            yield break;
+        }
+        if (LoadManager.GetCurrentScene() != OWScene.TitleScreen 
                 || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.CREDITS || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.TITLE)
         {
             PatchClass.SubmitActionLoadScene_ConfirmSubmit(__instance);
