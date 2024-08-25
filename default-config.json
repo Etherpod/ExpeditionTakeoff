@@ -2,19 +2,13 @@
   "$schema": "https://raw.githubusercontent.com/ow-mods/owml/master/schemas/config_schema.json",
   "enabled": true,
   "settings": {
-    "extendLoadingTime": {
-      "title": "Extend Loading Time",
-      "type": "toggle",
-      "value": false,
-      "tooltip": "Artifically extends the loading time when starting an expedition. Useful for computers that load the game too quickly to see the animation."
-    },
     "loadTime": {
       "title": "Load Time",
       "type": "slider",
       "value": 6,
       "min": 1,
       "max": 15,
-      "tooltip": "The amount of time to wait when starting an expedition. Ranges from 1 second to 15 seconds."
+      "tooltip": "The amount of time to wait when starting an expedition, with the maximum time being 15 seconds. Set to 0 to disable."
     },
     "sfxVolume": {
       "title": "SFX Volume",

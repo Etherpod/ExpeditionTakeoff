@@ -13,7 +13,7 @@ public class ExpeditionTakeoff : ModBehaviour
     public static ExpeditionTakeoff Instance;
     public bool quickLoad { get; private set; }
     public bool hasGameSave { get; private set; }
-    internal bool longLoadingTime;
+    public bool longLoadingTime { get; private set; }
 
     private TitleScreenManager _titleScreenManager;
     private TitleScreenAnimation _titleScreenAnimation;
@@ -40,8 +40,8 @@ public class ExpeditionTakeoff : ModBehaviour
         string shipPath = Path.Combine(ModHelper.Manifest.ModFolderPath, "assets/expeditiontakeoff");
         _shipBundle = AssetBundle.LoadFromFile(shipPath);
 
-        longLoadingTime = ModHelper.Config.GetSettingsValue<bool>("extendLoadingTime");
         loadTime = ModHelper.Config.GetSettingsValue<float>("loadTime");
+        longLoadingTime = loadTime > 0f;
 
         _titleScreenAnimation = FindObjectOfType<TitleScreenAnimation>();
         _titleScreenManager = FindObjectOfType<TitleScreenManager>();
@@ -167,16 +167,16 @@ public class ExpeditionTakeoff : ModBehaviour
             PatchClass.firstLoadAttempt = true;
             yield break;
         }
+        if (LoadManager.GetCurrentScene() != OWScene.TitleScreen
+        || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.CREDITS || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.TITLE)
+        {
+            PatchClass.SubmitActionLoadScene_ConfirmSubmit(__instance);
+            yield break;
+        }
         if (!longLoadingTime || (quickLoad && hasGameSave))
         {
             __instance.OnSubmitAction += StartTakeoffSequence;
             _selectedButton = __instance;
-            PatchClass.SubmitActionLoadScene_ConfirmSubmit(__instance);
-            yield break;
-        }
-        if (LoadManager.GetCurrentScene() != OWScene.TitleScreen 
-                || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.CREDITS || __instance._sceneToLoad == SubmitActionLoadScene.LoadableScenes.TITLE)
-        {
             PatchClass.SubmitActionLoadScene_ConfirmSubmit(__instance);
             yield break;
         }
@@ -222,8 +222,8 @@ public class ExpeditionTakeoff : ModBehaviour
 
     public override void Configure(IModConfig config)
     {
-        longLoadingTime = config.GetSettingsValue<bool>("extendLoadingTime");
         loadTime = config.GetSettingsValue<float>("loadTime");
+        longLoadingTime = loadTime > 0f;
         sfxVolume = config.GetSettingsValue<float>("sfxVolume") / 2;
     }
 
