@@ -27,7 +27,8 @@ public class ExpeditionTakeoff : ModBehaviour
     private float loadTime;
     public float sfxVolume;
 
-    public static bool DebugModeEnabled = true;
+    public static readonly bool DebugModeEnabled = false;
+    public static readonly int numberOfAnimations = 6;
 
     private void Awake()
     {
@@ -148,7 +149,7 @@ public class ExpeditionTakeoff : ModBehaviour
 
         if (_shipObject)
         {
-            _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", Random.Range(0, 5));
+            _shipObject.GetComponentInChildren<Animator>().SetInteger("LiftoffIndex", Random.Range(0, numberOfAnimations));
             _shipAudioController.PlayLoopingAudio();
         }
     }

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 604638963
+CRC: 3900871456
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8188a89498928a2187144d41e4206dad
+    Hash: 951dd27c242ed2c383a178f45c3da55c
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 95823b6e612d3f3ebae71341be5c012d
+    Hash: 6afd68f0680d954d5a267f7c4b2e4bf7
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -29,6 +29,8 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 74
   Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
 - Class: 91
   Script: {instanceID: 0}
 - Class: 95
@@ -42,11 +44,15 @@ ClassTypes:
 - Class: 114
   Script: {fileID: 11500000, guid: c1e03d384261f6f301ef6513a478c3a8, type: 3}
 - Class: 114
+  Script: {fileID: 11500000, guid: 2145ed3a866d4bd5a94d98ee05d0fa4f, type: 3}
+- Class: 114
   Script: {fileID: 11500000, guid: f9391fcb5ba6bb5d69fc6b532877ec3b, type: 3}
 - Class: 114
-  Script: {fileID: 11500000, guid: c863958e16a8cce3eefc4ec691ab4cce, type: 3}
-- Class: 114
   Script: {fileID: 1594328325, guid: 2a04241e58987c74a896494b4e339113, type: 3}
+- Class: 114
+  Script: {fileID: 978072590, guid: 2a04241e58987c74a896494b4e339113, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: c863958e16a8cce3eefc4ec691ab4cce, type: 3}
 - Class: 115
   Script: {instanceID: 0}
 - Class: 198
@@ -60,7 +66,9 @@ Assets:
 - Assets/ShipAnim/Ship_Liftoff_C.anim
 - Assets/ShipAnim/Ship_Liftoff_A.anim
 - Assets/ShipAnim/Ship_Pivot.prefab
+- Assets/ShipAnim/Ship_Liftoff_E.anim
 - Assets/ShipAnim/PlanetPivot.prefab
+- Assets/ShipAnim/Ship_Liftoff_F.anim
 - Assets/ShipAnim/TitleScreenShip.controller
 - Assets/ShipAnim/Ship_Liftoff_B.anim
 - Assets/ShipAnim/Structure_HEA_PlayerShip_v4_NearProxy.prefab
